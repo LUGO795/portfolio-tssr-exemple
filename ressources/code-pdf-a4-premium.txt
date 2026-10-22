@@ -1,0 +1,38 @@
+Pour cette version finale, le code complet à ajouter est apercu-pdf-a4.html. J’y ai ajouté une chose : 
+
+si une photo de profil a été choisie avec le bouton « Photo », elle s’affiche maintenant dans l’en-tête du PDF, en médaillon rond à côté du nom. 
+Sinon, l’en-tête reste comme avant.
+
+Où le placer : 
+tout à la fin d’index.html, juste avant </body> (ligne 12463). Il se met donc après le commentaire <!-- ═══════════ FIN CORRECTIF PDF A4 ═══════════ --> (ligne 12460) et avant <!-- Fin du document HTML. -->. Ça donne :
+
+})();
+</script>
+<!-- ═══════════ FIN CORRECTIF PDF A4 ═══════════ -->
+
+  ← COLLER ICI tout le contenu de apercu-pdf-a4.html
+
+</body>
+
+<!-- Fin du document HTML. -->
+</html>
+
+Ne touche à rien d’autre, puis recharge la page avec Ctrl + F5.
+
+Ce que j’ai vérifié sur cette page, avec l’injection de Live Server simulée :
+
+Bouton « PDF A4 » : 
+il ouvre l’aperçu, et l’ancienne impression ne se déclenche plus. 
+Le PDF fait 1 seule page en clair comme en sombre, en texte standard comme en très grand, sans aucune erreur JavaScript.
+
+Photo de profil : 
+elle apparaît bien dans l’en-tête (voir les deux PDF d’exemple). 
+Dans ton dossier, photo-profil.jpg est à la racine, alors que la page la cherche dans images/ : pense à l’y déplacer, ou choisis-la avec le bouton « Photo ».
+
+Les autres modules de la page :
+« CV 1 page » ouvre toujours son propre aperçu.
+La visionneuse des captures de projets ne touche pas au bouton « PDF A4 ».
+Le « correctif PDF A4 » déjà présent dans ta page ne sert que pour l’impression classique (Ctrl + P) : les deux coexistent sans conflit.
+
+Traduction : les libellés fixes du PDF suivent la langue choisie dans « Traduire ». 
+Comme pour les pages précédentes, je l’ai vérifié en simulant une traduction en anglais, car Google Traduction n’est pas joignable depuis mon environnement.

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<!-- Page « Mentions légales » du CV portfolio. À placer à côté de index.html, sous le nom mentions-legales.html.
+     Elle s'adapte toute seule au propriétaire du CV : le lien du pied de page lui transmet le nom, l'e-mail, la ville,
+     la langue, le thème et la taille des textes. Ouverte directement, elle utilise les réglages du bloc CONFIG plus bas. -->
+<html lang="fr" data-theme="dark" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Une page de mentions légales n'a pas à être indexée par les moteurs de recherche. -->
+  <meta name="robots" content="noindex, follow" />
+  <title>Mentions légales</title>
+  <meta name="description" content="Mentions légales, données personnelles et cookies du CV portfolio." />
+  <meta name="theme-color" content="#060d1a" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+  <!-- Les mêmes polices que le CV portfolio. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@500;600&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Avant tout affichage : on applique le thème et la taille des textes, pour éviter un « flash » de la mauvaise apparence. -->
+  <script>
+  (function () {
+    var p = new URLSearchParams(location.hash.slice(1)), t = p.get('theme'), s = parseFloat(p.get('scale'));
+    try { t = t || localStorage.getItem('theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    if (!s) { try { s = parseFloat(localStorage.getItem('portfolio_text_scale')); } catch (e) {} }
+    if (s > 1 && s <= 1.35) { document.documentElement.style.setProperty('--tz-scale', s); document.documentElement.classList.add('tz-on'); }
+  })();
+  </script>
+
+  <style>
+    /* ============ COULEURS : contrastes renforcés (texte ≥ 7:1, niveau AAA) dans les deux thèmes ============ */
+    :root {
+      --bg:        #060d1a;
+      --bg2:       #0c1729;
+      --card:      #0f1c31;
+      --border:    #2a3f5f;
+      --text:      #eef3fa;   /* 17,6:1 sur le fond */
+      --text-soft: #c9d5e6;   /* 12,9:1 */
+      --heading:   #ffffff;
+      --accent:    #2563eb;
+      --link:      #9ec5ff;   /* 10,4:1 */
+      --link-hover:#c7ddff;
+      --focus:     #fbbf24;   /* jaune bien visible autour des éléments ciblés au clavier */
+      --chip:      #16263f;
+      --notice-bg: #1b2a12;
+      --notice-bd: #4d7c0f;
+      --notice-tx: #e6f4cf;
+      --font-display: 'Syne', system-ui, sans-serif;
+      --font-body:    'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+      --font-mono:    'IBM Plex Mono', ui-monospace, Consolas, monospace;
+      --radius: 14px;
+      color-scheme: dark;
+    }
+    [data-theme="light"] {
+      --bg:        #f5f7fb;
+      --bg2:       #ffffff;
+      --card:      #ffffff;
+      --border:    #b8c4d6;
+      --text:      #0b1324;   /* 17,9:1 */
+      --text-soft: #26354d;   /* 11,7:1 */
+      --heading:   #020817;
+      --accent:    #1d4ed8;
+      --link:      #1739a8;   /* 9,3:1 */
+      --link-hover:#0b2272;
+      --focus:     #b45309;
+      --chip:      #e7edf6;
+      --notice-bg: #f2f9e6;
+      --notice-bd: #4d7c0f;
+      --notice-tx: #1f3307;
+      color-scheme: light;
+    }
+    /* Si le système demande plus de contraste, on pousse encore les couleurs. */
+    @media (prefers-contrast: more) {
+      :root { --text-soft: var(--text); --border: #8aa2c4; }
+      [data-theme="light"] { --text-soft: var(--text); --border: #4b5d78; }
+    }
+
+    /* ============ BASE ============ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    /* Les boutons A− / A+ : tout est en rem, il suffit d'agrandir la taille de base (jusqu'à 135 %). */
+    @media screen { html.tz-on { font-size: calc(16px * var(--tz-scale, 1)); } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.75;
+      overflow-wrap: anywhere; word-break: normal;
+    }
+    a { color: var(--link); text-decoration: underline; text-underline-offset: .18em; text-decoration-thickness: .08em; }
+    a:hover { color: var(--link-hover); text-decoration-thickness: .14em; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+    strong { color: var(--heading); font-weight: 700; }
+
+    /* Lien d'évitement : visible dès qu'on arrive au clavier. */
+    .skip { position: absolute; left: .75rem; top: -10rem; z-index: 100; background: var(--accent); color: #fff; padding: .7rem 1rem; border-radius: 10px; font-weight: 700; text-decoration: none; }
+    .skip:focus { top: .75rem; color: #fff; }
+
+    /* ============ EN-TÊTE ============ */
+    .top {
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border); z-index: 50;
+    }
+    @media (min-width: 576px) and (min-height: 520px) { .top { position: sticky; top: 0; } }
+    .top-in {
+      max-width: 72rem; margin: 0 auto; padding: .7rem 1rem;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: .6rem; min-width: 0;
+      color: var(--heading); text-decoration: none; font-family: var(--font-display); font-weight: 800; font-size: 1.25rem;
+    }
+    .brand:hover { color: var(--heading); }
+    .brand .dot { color: var(--link); }
+    .brand small { font-family: var(--font-mono); font-weight: 500; font-size: .8rem; color: var(--text-soft); white-space: nowrap; }
+    .tools { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; }
+
+    /* Boutons communs : cibles d'au moins 44 px pour les doigts et les souris imprécises. */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+      min-height: 2.75rem; min-width: 2.75rem; padding: 0 .9rem;
+      background: var(--chip); color: var(--text); border: 1px solid var(--border); border-radius: 999px;
+      font: 600 .95rem/1 var(--font-mono); cursor: pointer; white-space: nowrap;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .btn:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn i { font-size: .95em; }
+
+    /* La pilule A− 100 % A+ */
+    .tz { display: inline-flex; align-items: center; background: var(--chip); border: 1px solid var(--border); border-radius: 999px; padding: .15rem; }
+    .tz .btn { background: transparent; border: 0; min-width: 2.5rem; min-height: 2.5rem; padding: 0 .45rem; gap: .1rem; }
+    .tz .a { font-family: var(--font-display); font-weight: 800; }
+    #tz-down .a { font-size: .85em; } #tz-up .a { font-size: 1.15em; }
+    .tz .btn i { font-size: .6em; }
+    #tz-val { font: 600 .82rem var(--font-mono); color: var(--link); min-width: 3.4em; text-align: center; }
+
+    /* Le menu des langues */
+    .lang { position: relative; }
+    .lang-code { font-size: .78rem; padding: .15rem .45rem; border-radius: 999px; background: var(--bg); color: var(--link); border: 1px solid var(--border); }
+    .lang-menu {
+      position: absolute; right: 0; top: calc(100% + .45rem); z-index: 60; min-width: 13rem; max-width: calc(100vw - 2rem);
+      margin: 0; padding: .35rem; list-style: none; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+    }
+    .lang-menu[hidden] { display: none; }
+    .lang-menu button {
+      display: flex; align-items: center; gap: .7rem; width: 100%; min-height: 2.75rem; padding: .4rem .7rem;
+      background: transparent; border: 0; border-radius: 10px; color: var(--text); font: 500 1rem var(--font-body); text-align: left; cursor: pointer;
+    }
+    .lang-menu button:hover, .lang-menu button:focus-visible { background: var(--chip); }
+    .lang-menu button[aria-current="true"] { font-weight: 700; color: var(--heading); }
+    .lang-menu button[aria-current="true"]::after { content: "\2713"; margin-left: auto; color: var(--link); font-weight: 700; }
+    .lang-menu .c { font: 600 .78rem var(--font-mono); min-width: 2.2rem; text-align: center; padding: .2rem 0; border-radius: 6px; background: var(--chip); color: var(--text-soft); }
+
+    /* Sur petit écran, le libellé des boutons disparaît (il reste lu par les lecteurs d'écran)
+       et la liste des langues s'ouvre dans le flux pour ne jamais sortir de l'écran. */
+    @media (max-width: 575.98px) {
+      .top-in { justify-content: center; }
+      .brand { width: 100%; justify-content: center; flex-wrap: wrap; text-align: center; }
+      .tools { justify-content: center; }
+      .btn .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      .lang { position: static; }
+      .lang-menu { position: absolute; left: 1rem; right: 1rem; min-width: 0; max-width: none; }
+    }
+    @media (max-width: 359.98px) {
+      .top-in { padding: .6rem .5rem; }
+      .btn { min-width: 2.5rem; padding: 0 .55rem; }
+      .tz .btn { min-width: 2.2rem; padding: 0 .3rem; }
+      #tz-val { min-width: 2.9em; }
+    }
+
+    /* ============ CONTENU ============ */
+    main { max-width: 72rem; margin: 0 auto; padding: 2.5rem 1rem 3rem; }
+    .hero { max-width: 48rem; margin: 0 auto 2rem; }
+    .eyebrow { font: 600 .85rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--link); margin: 0 0 .6rem; }
+    h1 { font-family: var(--font-display); font-weight: 800; color: var(--heading); font-size: clamp(2rem, 6vw, 3rem); line-height: 1.12; margin: 0 0 .6rem; overflow-wrap: break-word; }
+    .sub { margin: 0; color: var(--text-soft); font-size: 1.1rem; }
+    .meta { margin: .9rem 0 0; font: 500 .9rem var(--font-mono); color: var(--text-soft); }
+
+    .layout { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr); max-width: 48rem; margin: 0 auto; }
+    @media (min-width: 1100px) { .layout { max-width: none; grid-template-columns: 16rem minmax(0, 48rem); justify-content: center; } }
+
+    .toc { align-self: start; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.2rem; }
+    @media (min-width: 1100px) and (min-height: 600px) { .toc { position: sticky; top: 6rem; } }
+    .toc h2 { font: 700 .95rem var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--heading); margin: 0 0 .6rem; }
+    .toc ol { margin: 0; padding-left: 1.4rem; }
+    .toc li { margin: .25rem 0; line-height: 1.5; }
+
+    .notice { background: var(--notice-bg); border: 1px solid var(--notice-bd); color: var(--notice-tx); border-radius: var(--radius); padding: .9rem 1.1rem; margin: 0 0 1.5rem; display: flex; gap: .7rem; }
+    .notice i { margin-top: .35rem; }
+    .notice p { margin: 0; }
+    .notice[hidden], .sub[hidden] { display: none; }
+
+    section.block { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem 1.4rem .6rem; margin: 0 0 1.25rem; scroll-margin-top: 6.5rem; }
+    section.block h2 { font-family: var(--font-display); font-weight: 700; color: var(--heading); font-size: 1.4rem; line-height: 1.3; margin: 0 0 .8rem; display: flex; gap: .7rem; align-items: baseline; }
+    section.block h2 .n { font: 600 .9rem var(--font-mono); color: var(--link); flex-shrink: 0; }
+    section.block p, section.block li { margin: 0 0 .9rem; }
+    section.block ul { padding-left: 1.3rem; margin: 0 0 .9rem; }
+    dl.id { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: .1rem 1.2rem; margin: 0 0 1rem; }
+    dl.id dt { font-weight: 700; color: var(--heading); }
+    dl.id dd { margin: 0 0 .5rem; }
+    @media (max-width: 575.98px) { dl.id { grid-template-columns: minmax(0, 1fr); } dl.id dd { margin-bottom: .8rem; } section.block { padding: 1.1rem 1rem .4rem; } }
+
+    footer { border-top: 1px solid var(--border); background: var(--bg2); }
+    .foot { max-width: 72rem; margin: 0 auto; padding: 1.4rem 1rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 1.5rem; color: var(--text-soft); font-size: .95rem; }
+    .foot p { margin: 0; }
+
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* ============ IMPRESSION ============ */
+    @media print {
+      :root, [data-theme="light"], [data-theme="dark"] { --bg: #fff; --bg2: #fff; --card: #fff; --text: #000; --text-soft: #222; --heading: #000; --link: #000; --border: #999; }
+      .top .tools, .skip, .toc { display: none !important; }
+      .top { position: static; }
+      section.block { break-inside: avoid; }
+      a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .85em; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#contenu" id="skip">Aller au contenu</a>
+
+  <header class="top">
+    <div class="top-in">
+      <a class="brand" href="index.html" id="brand"><span><span id="initials">CV</span><span class="dot">.</span></span><small id="brand-sub">CV portfolio</small></a>
+      <div class="tools">
+        <!-- Taille des textes -->
+        <div class="tz" role="group" id="tz-group" aria-label="Taille des textes">
+          <button type="button" class="btn" id="tz-down"><span class="a" aria-hidden="true">A</span><i class="fas fa-minus" aria-hidden="true"></i></button>
+          <span id="tz-val" aria-live="polite">100 %</span>
+          <button type="button" class="btn" id="tz-up"><span class="a" aria-hidden="true">A</span><i class="fas fa-plus" aria-hidden="true"></i></button>
+        </div>
+        <!-- Langues -->
+        <div class="lang">
+          <button type="button" class="btn" id="lang-btn" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu">
+            <i class="fas fa-language" aria-hidden="true"></i><span class="lbl" id="lang-lbl">Traduire</span><span class="lang-code" id="lang-code">FR</span>
+          </button>
+          <ul class="lang-menu" id="lang-menu" hidden></ul>
+        </div>
+        <!-- Thème -->
+        <button type="button" class="btn" id="theme-btn" aria-pressed="false"><i class="fas fa-sun" id="theme-ico" aria-hidden="true"></i><span class="lbl" id="theme-lbl">Mode clair</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenu" tabindex="-1">
+    <div class="hero">
+      <p class="eyebrow" id="eyebrow">Informations légales</p>
+      <h1 id="h1">Mentions légales</h1>
+      <p class="sub" id="sub"></p>
+      <p class="meta" id="meta"></p>
+    </div>
+    <div class="layout">
+      <nav class="toc" id="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">Sommaire</h2>
+        <ol id="toc-list"></ol>
+      </nav>
+      <div>
+        <div class="notice" id="notice" hidden><i class="fas fa-circle-info" aria-hidden="true"></i><p id="notice-txt"></p></div>
+        <div id="sections"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="foot">
+      <p id="copy"></p>
+      <p><a href="index.html" id="back"><i class="fas fa-arrow-left" aria-hidden="true"></i> <span id="back-lbl">Retour au CV portfolio</span></a></p>
+    </div>
+  </footer>
+
+  <p class="sr" id="live" aria-live="polite"></p>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ═══════════════════ CONFIG : réglages du propriétaire ═══════════════════
+     Ces valeurs ne servent que si la page est ouverte directement (sans passer par le lien du pied de page).
+     Laissées vides, la page reste valable : elle parle alors du « titulaire de ce CV portfolio ».
+     Si le site n'est pas hébergé sur GitHub Pages, remplacez les coordonnées de l'hébergeur. */
+  var CONFIG = {
+    nom:       '',
+    email:     '',
+    lieu:      '',
+    formation: 'Technicien Supérieur Systèmes et Réseaux (TSSR) – MODE 83, Draguignan (Var)',
+    majISO:    '2026-10-22',
+    hebergeur: {
+      nom:     'GitHub, Inc. (GitHub Pages)',
+      adresse: '88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA',
+      tel:     '+1 877 448 4820',
+      web:     'https://github.com'
+    }
+  };
+
+  var LANGS = [
+    { code: 'fr', name: 'Français'   },
+    { code: 'en', name: 'English'    },
+    { code: 'es', name: 'Español'    },
+    { code: 'de', name: 'Deutsch'    },
+    { code: 'it', name: 'Italiano'   },
+    { code: 'pt', name: 'Português'  },
+    { code: 'nl', name: 'Nederlands' }
+  ];
+
+  /* ═══════════════════ TEXTES DANS LES 7 LANGUES ═══════════════════
+     Jetons remplacés à l'affichage : {N} nom, {E} e-mail, {F} formation,
+     {FS} lien Formspree, {CNIL} lien CNIL.                                      */
+  var T = {
+  fr: {
+    ui: { skip: 'Aller au contenu', translate: 'Traduire', light: 'Mode clair', dark: 'Mode sombre', smaller: 'Diminuer la taille des textes', larger: 'Agrandir la taille des textes', size: 'Taille des textes', current: 'actuellement', toc: 'Sommaire', eyebrow: 'Informations légales', title: 'Mentions légales', sub: 'CV portfolio de {N}', updated: 'Dernière mise à jour :', back: 'Retour au CV portfolio', rights: 'Tous droits réservés.', langChanged: 'Page affichée en français.', themeOnLight: 'Mode clair activé.', themeOnDark: 'Mode sombre activé.', portfolio: 'CV portfolio', notice: '' },
+    gen: { N: 'la personne titulaire de ce CV portfolio' }, pre: {}, noEmail: 'le formulaire de contact du CV portfolio',
+    lb: { editor: 'Éditeur du site', status: 'Statut', statusVal: 'Particulier – site personnel, non commercial', contact: 'Contact', place: 'Localisation', director: 'Directeur de la publication', host: 'Hébergeur', address: 'Adresse', phone: 'Téléphone', web: 'Site web' },
+    s: [
+      { id: 'editeur', t: 'Éditeur du site', h: `<p>Ce site est un CV portfolio personnel, édité à titre non professionnel par une personne physique, conformément à la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN).</p>{EDITOR}` },
+      { id: 'hebergement', t: 'Hébergement', h: `<p>Le site est hébergé par :</p>{HOST}` },
+      { id: 'objet', t: 'Objet du site', h: `<p>Ce site a pour seul objet de présenter le parcours, les compétences, la formation et les projets de {N}, afin de faciliter sa recherche d'emploi ou de stage et les échanges avec les recruteurs.</p><p>Il a été réalisé dans le cadre de la formation {F}. Il ne vend aucun produit ni service et ne contient aucune publicité.</p>` },
+      { id: 'propriete', t: 'Propriété intellectuelle', h: `<p>Sauf mention contraire, l'ensemble des contenus de ce site (textes, photographies, captures d'écran, projets, programmes et documents téléchargeables) appartient à {N}. Toute reproduction, représentation, modification ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite (Code de la propriété intellectuelle).</p><p>Les marques, logos et noms de produits cités (logiciels, systèmes d'exploitation, équipements réseau…) appartiennent à leurs propriétaires respectifs et ne sont mentionnés qu'à titre descriptif.</p><p>Le site utilise des outils libres : Bootstrap (licence MIT), Font Awesome Free (licences CC BY 4.0, SIL OFL 1.1 et MIT) et les polices Syne, DM Sans et IBM Plex Mono (licence SIL Open Font License).</p>` },
+      { id: 'donnees', t: 'Données personnelles (RGPD)', h: `<p><strong>Responsable du traitement :</strong> {N}, joignable via {E}.</p><ul><li><strong>Données collectées :</strong> uniquement celles que vous saisissez volontairement dans le formulaire de contact (nom, adresse e-mail, objet et message).</li><li><strong>Finalité :</strong> répondre à votre message, notamment pour une proposition d'emploi, de stage ou une demande d'information.</li><li><strong>Base légale :</strong> votre consentement, exprimé par l'envoi volontaire du message (article 6.1.a du RGPD).</li><li><strong>Destinataires :</strong> les messages sont lus uniquement par {N}. Ils transitent par le service d'envoi de formulaires Formspree, établi aux États-Unis, qui agit comme prestataire technique ({FS}). Vos données ne sont jamais vendues ni cédées.</li><li><strong>Durée de conservation :</strong> le temps nécessaire au traitement de votre demande, et au plus trois ans après le dernier échange.</li></ul><p>Conformément au RGPD et à la loi « Informatique et Libertés », vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de vos données. Pour l'exercer, écrivez à {E}. Vous pouvez aussi adresser une réclamation à la CNIL ({CNIL}).</p>` },
+      { id: 'cookies', t: 'Cookies et stockage local', h: `<p>Ce site n'utilise aucun cookie publicitaire ni outil de mesure d'audience.</p><p>Il enregistre seulement dans votre navigateur (stockage local) vos préférences d'affichage : thème clair ou sombre, taille des textes et langue. Ces informations restent sur votre appareil, ne sont transmises à personne et peuvent être effacées à tout moment depuis les réglages de votre navigateur.</p><p>Certaines ressources sont chargées depuis des services tiers, qui reçoivent à cette occasion votre adresse IP : les polices Google Fonts (Google), les bibliothèques des réseaux de diffusion jsDelivr et cdnjs, et la carte Google Maps intégrée au CV portfolio. Le service Google Traduction n'est chargé que si vous demandez la traduction du CV portfolio ; il dépose alors un cookie « googtrans » qui mémorise la langue choisie.</p>` },
+      { id: 'liens', t: 'Liens externes et responsabilité', h: `<p>Le site peut contenir des liens vers d'autres sites (réseaux professionnels, organisme de formation, documentation). Leur contenu ne relève pas de la responsabilité de {N}, qui n'exerce aucun contrôle sur eux.</p><p>Les informations publiées sont fournies à titre indicatif. Malgré le soin apporté à leur exactitude, des erreurs ou omissions peuvent subsister : vous pouvez les signaler via {E}.</p>` },
+      { id: 'accessibilite', t: 'Accessibilité et traductions', h: `<p>Cette page et le CV portfolio proposent un thème clair et un thème sombre aux contrastes renforcés, des boutons A− et A+ pour agrandir les textes jusqu'à 135 %, une navigation complète au clavier et une structure adaptée aux lecteurs d'écran.</p><p>Les versions anglaise, espagnole, allemande, italienne, portugaise et néerlandaise de cette page sont fournies à titre d'information. En cas de divergence, la version française fait foi.</p>` },
+      { id: 'droit', t: 'Droit applicable', h: `<p>Les présentes mentions légales sont régies par le droit français. En cas de litige, et à défaut de solution amiable, les tribunaux français sont compétents.</p>` }
+    ]
+  },
+  en: {
+    ui: { skip: 'Skip to content', translate: 'Translate', light: 'Light mode', dark: 'Dark mode', smaller: 'Decrease text size', larger: 'Increase text size', size: 'Text size', current: 'currently', toc: 'Contents', eyebrow: 'Legal information', title: 'Legal notice', sub: 'CV portfolio of {N}', updated: 'Last updated:', back: 'Back to the CV portfolio', rights: 'All rights reserved.', langChanged: 'Page displayed in English.', themeOnLight: 'Light mode on.', themeOnDark: 'Dark mode on.', portfolio: 'CV portfolio', notice: 'This translation is provided for information only. In case of discrepancy, the French version prevails.' },
+    gen: { N: 'the owner of this CV portfolio' }, pre: {}, noEmail: 'the contact form of the CV portfolio',
+    lb: { editor: 'Website publisher', status: 'Status', statusVal: 'Private individual – personal, non-commercial website', contact: 'Contact', place: 'Location', director: 'Publication director', host: 'Hosting provider', address: 'Address', phone: 'Phone', web: 'Website' },
+    s: [
+      { id: 'editeur', t: 'Website publisher', h: `<p>This website is a personal CV portfolio, published on a non-professional basis by a private individual, in accordance with French law no. 2004-575 of 21 June 2004 on confidence in the digital economy (LCEN).</p>{EDITOR}` },
+      { id: 'hebergement', t: 'Hosting', h: `<p>The website is hosted by:</p>{HOST}` },
+      { id: 'objet', t: 'Purpose of the website', h: `<p>The sole purpose of this website is to present the background, skills, training and projects of {N}, in order to support their search for a job or internship and their exchanges with recruiters.</p><p>It was created as part of the training programme {F}. It sells no products or services and contains no advertising.</p>` },
+      { id: 'propriete', t: 'Intellectual property', h: `<p>Unless otherwise stated, all content on this website (texts, photographs, screenshots, projects, programs and downloadable documents) belongs to {N}. Any reproduction, representation, modification or distribution, in whole or in part, without prior written permission is prohibited (French Intellectual Property Code).</p><p>The trademarks, logos and product names mentioned (software, operating systems, network equipment, etc.) belong to their respective owners and are cited for descriptive purposes only.</p><p>The website uses open-source tools: Bootstrap (MIT licence), Font Awesome Free (CC BY 4.0, SIL OFL 1.1 and MIT licences) and the Syne, DM Sans and IBM Plex Mono fonts (SIL Open Font License).</p>` },
+      { id: 'donnees', t: 'Personal data (GDPR)', h: `<p><strong>Data controller:</strong> {N}, who can be reached via {E}.</p><ul><li><strong>Data collected:</strong> only the data you voluntarily enter in the contact form (name, email address, subject and message).</li><li><strong>Purpose:</strong> to reply to your message, in particular a job or internship offer or a request for information.</li><li><strong>Legal basis:</strong> your consent, given by voluntarily sending the message (Article 6(1)(a) GDPR).</li><li><strong>Recipients:</strong> messages are read only by {N}. They pass through the form service Formspree, based in the United States, which acts as a technical provider ({FS}). Your data is never sold or transferred.</li><li><strong>Retention period:</strong> as long as needed to handle your request, and no more than three years after the last exchange.</li></ul><p>Under the GDPR and the French Data Protection Act, you have the right to access, rectify, erase, restrict, object to and port your data. To exercise these rights, write to {E}. You may also lodge a complaint with the CNIL, the French data protection authority ({CNIL}).</p>` },
+      { id: 'cookies', t: 'Cookies and local storage', h: `<p>This website uses no advertising cookies and no audience measurement tools.</p><p>It only stores your display preferences in your browser (local storage): light or dark theme, text size and language. This information stays on your device, is shared with no one and can be deleted at any time from your browser settings.</p><p>Some resources are loaded from third-party services, which receive your IP address in the process: Google Fonts (Google), libraries from the jsDelivr and cdnjs content delivery networks, and the Google Maps map embedded in the CV portfolio. Google Translate is only loaded if you ask for the CV portfolio to be translated; it then sets a “googtrans” cookie that remembers the chosen language.</p>` },
+      { id: 'liens', t: 'External links and liability', h: `<p>The website may contain links to other websites (professional networks, training centre, documentation). Their content is not the responsibility of {N}, who has no control over them.</p><p>The information published is provided for guidance only. Despite the care taken to ensure its accuracy, errors or omissions may remain: you can report them via {E}.</p>` },
+      { id: 'accessibilite', t: 'Accessibility and translations', h: `<p>This page and the CV portfolio offer a light theme and a dark theme with enhanced contrast, A− and A+ buttons to enlarge text up to 135%, full keyboard navigation and a structure suited to screen readers.</p><p>The English, Spanish, German, Italian, Portuguese and Dutch versions of this page are provided for information only. In case of discrepancy, the French version prevails.</p>` },
+      { id: 'droit', t: 'Governing law', h: `<p>This legal notice is governed by French law. In the event of a dispute, and failing an amicable solution, the French courts have jurisdiction.</p>` }
+    ]
+  },
+  es: {
+    ui: { skip: 'Ir al contenido', translate: 'Traducir', light: 'Modo claro', dark: 'Modo oscuro', smaller: 'Reducir el tamaño del texto', larger: 'Aumentar el tamaño del texto', size: 'Tamaño del texto', current: 'actualmente', toc: 'Índice', eyebrow: 'Información legal', title: 'Aviso legal', sub: 'CV portafolio de {N}', updated: 'Última actualización:', back: 'Volver al CV portafolio', rights: 'Todos los derechos reservados.', langChanged: 'Página mostrada en español.', themeOnLight: 'Modo claro activado.', themeOnDark: 'Modo oscuro activado.', portfolio: 'CV portafolio', notice: 'Esta traducción se ofrece solo a título informativo. En caso de discrepancia, prevalece la versión francesa.' },
+    gen: { N: 'la persona titular de este CV portafolio' }, pre: {}, noEmail: 'el formulario de contacto del CV portafolio',
+    lb: { editor: 'Editor del sitio', status: 'Condición', statusVal: 'Particular – sitio personal, sin fines comerciales', contact: 'Contacto', place: 'Ubicación', director: 'Director de la publicación', host: 'Proveedor de alojamiento', address: 'Dirección', phone: 'Teléfono', web: 'Sitio web' },
+    s: [
+      { id: 'editeur', t: 'Editor del sitio', h: `<p>Este sitio es un CV portafolio personal, editado sin carácter profesional por una persona física, de conformidad con la ley francesa n.º 2004-575 de 21 de junio de 2004 sobre la confianza en la economía digital (LCEN).</p>{EDITOR}` },
+      { id: 'hebergement', t: 'Alojamiento', h: `<p>El sitio está alojado por:</p>{HOST}` },
+      { id: 'objet', t: 'Objeto del sitio', h: `<p>Este sitio tiene como único objeto presentar la trayectoria, las competencias, la formación y los proyectos de {N}, para facilitar su búsqueda de empleo o de prácticas y el contacto con los reclutadores.</p><p>Se ha realizado en el marco de la formación {F}. No vende ningún producto ni servicio y no contiene publicidad.</p>` },
+      { id: 'propriete', t: 'Propiedad intelectual', h: `<p>Salvo indicación contraria, todos los contenidos de este sitio (textos, fotografías, capturas de pantalla, proyectos, programas y documentos descargables) pertenecen a {N}. Queda prohibida cualquier reproducción, representación, modificación o difusión, total o parcial, sin autorización previa por escrito (Código francés de la propiedad intelectual).</p><p>Las marcas, logotipos y nombres de productos citados (software, sistemas operativos, equipos de red, etc.) pertenecen a sus respectivos propietarios y se mencionan únicamente con fines descriptivos.</p><p>El sitio utiliza herramientas libres: Bootstrap (licencia MIT), Font Awesome Free (licencias CC BY 4.0, SIL OFL 1.1 y MIT) y las fuentes Syne, DM Sans e IBM Plex Mono (licencia SIL Open Font License).</p>` },
+      { id: 'donnees', t: 'Datos personales (RGPD)', h: `<p><strong>Responsable del tratamiento:</strong> {N}, a quien puede contactar a través de {E}.</p><ul><li><strong>Datos recogidos:</strong> únicamente los que usted introduce voluntariamente en el formulario de contacto (nombre, correo electrónico, asunto y mensaje).</li><li><strong>Finalidad:</strong> responder a su mensaje, en particular una oferta de empleo o de prácticas o una solicitud de información.</li><li><strong>Base jurídica:</strong> su consentimiento, expresado al enviar voluntariamente el mensaje (artículo 6.1.a del RGPD).</li><li><strong>Destinatarios:</strong> los mensajes solo los lee {N}. Pasan por el servicio de formularios Formspree, establecido en Estados Unidos, que actúa como proveedor técnico ({FS}). Sus datos nunca se venden ni se ceden.</li><li><strong>Plazo de conservación:</strong> el tiempo necesario para tramitar su solicitud y, como máximo, tres años después del último intercambio.</li></ul><p>De acuerdo con el RGPD y la ley francesa «Informatique et Libertés», usted tiene derecho de acceso, rectificación, supresión, limitación, oposición y portabilidad de sus datos. Para ejercerlos, escriba a {E}. También puede presentar una reclamación ante la CNIL, la autoridad francesa de protección de datos ({CNIL}).</p>` },
+      { id: 'cookies', t: 'Cookies y almacenamiento local', h: `<p>Este sitio no utiliza cookies publicitarias ni herramientas de medición de audiencia.</p><p>Solo guarda en su navegador (almacenamiento local) sus preferencias de visualización: tema claro u oscuro, tamaño del texto e idioma. Esta información permanece en su dispositivo, no se transmite a nadie y puede borrarse en cualquier momento desde la configuración del navegador.</p><p>Algunos recursos se cargan desde servicios de terceros, que reciben en ese momento su dirección IP: las fuentes Google Fonts (Google), las bibliotecas de las redes de distribución jsDelivr y cdnjs, y el mapa de Google Maps integrado en el CV portafolio. El servicio Google Traductor solo se carga si usted pide traducir el CV portafolio; en ese caso instala una cookie «googtrans» que recuerda el idioma elegido.</p>` },
+      { id: 'liens', t: 'Enlaces externos y responsabilidad', h: `<p>El sitio puede contener enlaces a otros sitios (redes profesionales, centro de formación, documentación). Su contenido no es responsabilidad de {N}, que no ejerce ningún control sobre ellos.</p><p>La información publicada se ofrece a título orientativo. Pese al cuidado puesto en su exactitud, pueden existir errores u omisiones: puede señalarlos a través de {E}.</p>` },
+      { id: 'accessibilite', t: 'Accesibilidad y traducciones', h: `<p>Esta página y el CV portafolio ofrecen un tema claro y un tema oscuro con contraste reforzado, botones A− y A+ para ampliar el texto hasta el 135 %, navegación completa con el teclado y una estructura adaptada a los lectores de pantalla.</p><p>Las versiones inglesa, española, alemana, italiana, portuguesa y neerlandesa de esta página se ofrecen a título informativo. En caso de discrepancia, prevalece la versión francesa.</p>` },
+      { id: 'droit', t: 'Legislación aplicable', h: `<p>El presente aviso legal se rige por el derecho francés. En caso de litigio, y a falta de solución amistosa, serán competentes los tribunales franceses.</p>` }
+    ]
+  },
+  de: {
+    ui: { skip: 'Zum Inhalt springen', translate: 'Übersetzen', light: 'Heller Modus', dark: 'Dunkler Modus', smaller: 'Schrift verkleinern', larger: 'Schrift vergrößern', size: 'Schriftgröße', current: 'derzeit', toc: 'Inhalt', eyebrow: 'Rechtliche Hinweise', title: 'Impressum', sub: 'CV-Portfolio von {N}', updated: 'Zuletzt aktualisiert:', back: 'Zurück zum CV-Portfolio', rights: 'Alle Rechte vorbehalten.', langChanged: 'Seite auf Deutsch angezeigt.', themeOnLight: 'Heller Modus aktiviert.', themeOnDark: 'Dunkler Modus aktiviert.', portfolio: 'CV-Portfolio', notice: 'Diese Übersetzung dient nur zur Information. Bei Abweichungen ist die französische Fassung maßgeblich.' },
+    gen: { N: 'die Inhaberin bzw. der Inhaber dieses CV-Portfolios', dat: 'der Inhaberin bzw. dem Inhaber dieses CV-Portfolios' }, pre: { dat: '' }, noEmail: 'das Kontaktformular des CV-Portfolios',
+    lb: { editor: 'Herausgeber der Website', status: 'Status', statusVal: 'Privatperson – persönliche, nicht kommerzielle Website', contact: 'Kontakt', place: 'Standort', director: 'Verantwortlich für den Inhalt', host: 'Hosting-Anbieter', address: 'Anschrift', phone: 'Telefon', web: 'Website' },
+    s: [
+      { id: 'editeur', t: 'Herausgeber der Website', h: `<p>Diese Website ist ein persönliches CV-Portfolio, das von einer Privatperson ohne berufliche Absicht veröffentlicht wird, gemäß dem französischen Gesetz Nr. 2004-575 vom 21. Juni 2004 über das Vertrauen in die digitale Wirtschaft (LCEN).</p>{EDITOR}` },
+      { id: 'hebergement', t: 'Hosting', h: `<p>Die Website wird gehostet von:</p>{HOST}` },
+      { id: 'objet', t: 'Zweck der Website', h: `<p>Diese Website dient ausschließlich dazu, den Werdegang, die Kompetenzen, die Ausbildung und die Projekte von {N:dat} vorzustellen, um die Suche nach einer Stelle oder einem Praktikum sowie den Austausch mit Personalverantwortlichen zu erleichtern.</p><p>Sie wurde im Rahmen der Ausbildung {F} erstellt. Sie verkauft keine Produkte oder Dienstleistungen und enthält keine Werbung.</p>` },
+      { id: 'propriete', t: 'Geistiges Eigentum', h: `<p>Sofern nicht anders angegeben, gehören alle Inhalte dieser Website (Texte, Fotos, Screenshots, Projekte, Programme und herunterladbare Dokumente) {N:dat}. Jede vollständige oder teilweise Vervielfältigung, Darstellung, Änderung oder Verbreitung ohne vorherige schriftliche Genehmigung ist untersagt (französisches Gesetzbuch über geistiges Eigentum).</p><p>Die genannten Marken, Logos und Produktnamen (Software, Betriebssysteme, Netzwerkgeräte usw.) gehören ihren jeweiligen Inhabern und werden nur zu beschreibenden Zwecken erwähnt.</p><p>Die Website verwendet freie Werkzeuge: Bootstrap (MIT-Lizenz), Font Awesome Free (Lizenzen CC BY 4.0, SIL OFL 1.1 und MIT) sowie die Schriften Syne, DM Sans und IBM Plex Mono (SIL Open Font License).</p>` },
+      { id: 'donnees', t: 'Personenbezogene Daten (DSGVO)', h: `<p><strong>Verantwortlich für die Verarbeitung:</strong> {N}, erreichbar über {E}.</p><ul><li><strong>Erhobene Daten:</strong> nur die Angaben, die Sie freiwillig in das Kontaktformular eingeben (Name, E-Mail-Adresse, Betreff und Nachricht).</li><li><strong>Zweck:</strong> die Beantwortung Ihrer Nachricht, insbesondere eines Stellen- oder Praktikumsangebots oder einer Informationsanfrage.</li><li><strong>Rechtsgrundlage:</strong> Ihre Einwilligung durch das freiwillige Absenden der Nachricht (Art. 6 Abs. 1 lit. a DSGVO).</li><li><strong>Empfänger:</strong> Die Nachrichten werden ausschließlich von {N:dat} gelesen. Sie werden über den Formulardienst Formspree mit Sitz in den Vereinigten Staaten übermittelt, der als technischer Dienstleister handelt ({FS}). Ihre Daten werden niemals verkauft oder weitergegeben.</li><li><strong>Speicherdauer:</strong> so lange, wie es für die Bearbeitung Ihrer Anfrage nötig ist, höchstens drei Jahre nach dem letzten Austausch.</li></ul><p>Nach der DSGVO und dem französischen Datenschutzgesetz haben Sie das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch und Datenübertragbarkeit. Zur Ausübung dieser Rechte schreiben Sie an {E}. Sie können sich außerdem bei der CNIL, der französischen Datenschutzbehörde, beschweren ({CNIL}).</p>` },
+      { id: 'cookies', t: 'Cookies und lokale Speicherung', h: `<p>Diese Website verwendet keine Werbe-Cookies und keine Werkzeuge zur Reichweitenmessung.</p><p>Sie speichert in Ihrem Browser (lokaler Speicher) lediglich Ihre Anzeigeeinstellungen: helles oder dunkles Design, Schriftgröße und Sprache. Diese Angaben bleiben auf Ihrem Gerät, werden an niemanden übermittelt und können jederzeit in den Browsereinstellungen gelöscht werden.</p><p>Einige Ressourcen werden von Drittanbietern geladen, die dabei Ihre IP-Adresse erhalten: Google Fonts (Google), Bibliotheken der Content-Delivery-Netzwerke jsDelivr und cdnjs sowie die in das CV-Portfolio eingebettete Google-Maps-Karte. Google Übersetzer wird nur geladen, wenn Sie die Übersetzung des CV-Portfolios anfordern; er setzt dann ein Cookie „googtrans“, das die gewählte Sprache speichert.</p>` },
+      { id: 'liens', t: 'Externe Links und Haftung', h: `<p>Die Website kann Links zu anderen Websites enthalten (berufliche Netzwerke, Ausbildungszentrum, Dokumentation). Für deren Inhalte ist {N} nicht verantwortlich, da kein Einfluss auf sie besteht.</p><p>Die veröffentlichten Informationen dienen nur zur Orientierung. Trotz sorgfältiger Prüfung können Fehler oder Lücken bestehen: Sie können diese über {E} melden.</p>` },
+      { id: 'accessibilite', t: 'Barrierefreiheit und Übersetzungen', h: `<p>Diese Seite und das CV-Portfolio bieten ein helles und ein dunkles Design mit verstärktem Kontrast, A−- und A+-Schaltflächen zur Vergrößerung der Schrift auf bis zu 135 %, vollständige Tastaturbedienung und eine für Screenreader geeignete Struktur.</p><p>Die englische, spanische, deutsche, italienische, portugiesische und niederländische Fassung dieser Seite dienen nur zur Information. Bei Abweichungen ist die französische Fassung maßgeblich.</p>` },
+      { id: 'droit', t: 'Anwendbares Recht', h: `<p>Dieses Impressum unterliegt französischem Recht. Im Streitfall und sofern keine gütliche Einigung erzielt wird, sind die französischen Gerichte zuständig.</p>` }
+    ]
+  },
+  it: {
+    ui: { skip: 'Vai al contenuto', translate: 'Traduci', light: 'Modalità chiara', dark: 'Modalità scura', smaller: 'Riduci la dimensione del testo', larger: 'Aumenta la dimensione del testo', size: 'Dimensione del testo', current: 'attualmente', toc: 'Indice', eyebrow: 'Informazioni legali', title: 'Note legali', sub: 'CV portfolio di {N}', updated: 'Ultimo aggiornamento:', back: 'Torna al CV portfolio', rights: 'Tutti i diritti riservati.', langChanged: 'Pagina visualizzata in italiano.', themeOnLight: 'Modalità chiara attivata.', themeOnDark: 'Modalità scura attivata.', portfolio: 'CV portfolio', notice: 'Questa traduzione è fornita solo a titolo informativo. In caso di discordanza, prevale la versione francese.' },
+    gen: { N: 'il titolare di questo CV portfolio', di: 'del titolare di questo CV portfolio', a: 'al titolare di questo CV portfolio', da: 'dal titolare di questo CV portfolio' }, pre: { di: 'di', a: 'a', da: 'da' }, noEmail: 'il modulo di contatto del CV portfolio',
+    lb: { editor: 'Editore del sito', status: 'Stato', statusVal: 'Privato – sito personale, non commerciale', contact: 'Contatto', place: 'Località', director: 'Direttore della pubblicazione', host: 'Fornitore di hosting', address: 'Indirizzo', phone: 'Telefono', web: 'Sito web' },
+    s: [
+      { id: 'editeur', t: 'Editore del sito', h: `<p>Questo sito è un CV portfolio personale, pubblicato a titolo non professionale da una persona fisica, in conformità con la legge francese n. 2004-575 del 21 giugno 2004 sulla fiducia nell'economia digitale (LCEN).</p>{EDITOR}` },
+      { id: 'hebergement', t: 'Hosting', h: `<p>Il sito è ospitato da:</p>{HOST}` },
+      { id: 'objet', t: 'Scopo del sito', h: `<p>L'unico scopo di questo sito è presentare il percorso, le competenze, la formazione e i progetti {N:di}, per facilitare la ricerca di un impiego o di un tirocinio e gli scambi con i selezionatori.</p><p>È stato realizzato nell'ambito della formazione {F}. Non vende alcun prodotto o servizio e non contiene pubblicità.</p>` },
+      { id: 'propriete', t: 'Proprietà intellettuale', h: `<p>Salvo diversa indicazione, tutti i contenuti di questo sito (testi, fotografie, schermate, progetti, programmi e documenti scaricabili) appartengono {N:a}. È vietata qualsiasi riproduzione, rappresentazione, modifica o diffusione, totale o parziale, senza previa autorizzazione scritta (Codice francese della proprietà intellettuale).</p><p>I marchi, i loghi e i nomi di prodotti citati (software, sistemi operativi, apparecchiature di rete, ecc.) appartengono ai rispettivi proprietari e sono menzionati solo a scopo descrittivo.</p><p>Il sito utilizza strumenti liberi: Bootstrap (licenza MIT), Font Awesome Free (licenze CC BY 4.0, SIL OFL 1.1 e MIT) e i caratteri Syne, DM Sans e IBM Plex Mono (licenza SIL Open Font License).</p>` },
+      { id: 'donnees', t: 'Dati personali (GDPR)', h: `<p><strong>Titolare del trattamento:</strong> {N}, contattabile tramite {E}.</p><ul><li><strong>Dati raccolti:</strong> solo quelli che inserite volontariamente nel modulo di contatto (nome, indirizzo e-mail, oggetto e messaggio).</li><li><strong>Finalità:</strong> rispondere al vostro messaggio, in particolare a un'offerta di lavoro o di tirocinio o a una richiesta di informazioni.</li><li><strong>Base giuridica:</strong> il vostro consenso, espresso con l'invio volontario del messaggio (articolo 6.1.a del GDPR).</li><li><strong>Destinatari:</strong> i messaggi sono letti solo {N:da}. Transitano attraverso il servizio di moduli Formspree, con sede negli Stati Uniti, che agisce come fornitore tecnico ({FS}). I vostri dati non sono mai venduti né ceduti.</li><li><strong>Periodo di conservazione:</strong> il tempo necessario a gestire la vostra richiesta e al massimo tre anni dopo l'ultimo scambio.</li></ul><p>Ai sensi del GDPR e della legge francese «Informatique et Libertés», avete diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilità dei vostri dati. Per esercitarli, scrivete a {E}. Potete inoltre presentare un reclamo alla CNIL, l'autorità francese per la protezione dei dati ({CNIL}).</p>` },
+      { id: 'cookies', t: 'Cookie e archiviazione locale', h: `<p>Questo sito non utilizza cookie pubblicitari né strumenti di misurazione dell'audience.</p><p>Memorizza nel vostro browser (archiviazione locale) solo le vostre preferenze di visualizzazione: tema chiaro o scuro, dimensione del testo e lingua. Queste informazioni restano sul vostro dispositivo, non sono trasmesse a nessuno e possono essere cancellate in qualsiasi momento dalle impostazioni del browser.</p><p>Alcune risorse sono caricate da servizi di terzi, che ricevono in tale occasione il vostro indirizzo IP: i caratteri Google Fonts (Google), le librerie delle reti di distribuzione jsDelivr e cdnjs e la mappa Google Maps integrata nel CV portfolio. Il servizio Google Traduttore viene caricato solo se chiedete di tradurre il CV portfolio; in tal caso imposta un cookie «googtrans» che memorizza la lingua scelta.</p>` },
+      { id: 'liens', t: 'Link esterni e responsabilità', h: `<p>Il sito può contenere link ad altri siti (reti professionali, ente di formazione, documentazione). Il loro contenuto non è di responsabilità {N:di}, che non esercita alcun controllo su di essi.</p><p>Le informazioni pubblicate sono fornite a titolo indicativo. Nonostante la cura posta nella loro esattezza, possono permanere errori od omissioni: potete segnalarli tramite {E}.</p>` },
+      { id: 'accessibilite', t: 'Accessibilità e traduzioni', h: `<p>Questa pagina e il CV portfolio offrono un tema chiaro e un tema scuro a contrasto rafforzato, pulsanti A− e A+ per ingrandire il testo fino al 135 %, la navigazione completa da tastiera e una struttura adatta ai lettori di schermo.</p><p>Le versioni inglese, spagnola, tedesca, italiana, portoghese e olandese di questa pagina sono fornite a titolo informativo. In caso di discordanza, prevale la versione francese.</p>` },
+      { id: 'droit', t: 'Legge applicabile', h: `<p>Le presenti note legali sono disciplinate dal diritto francese. In caso di controversia, e in mancanza di una soluzione amichevole, sono competenti i tribunali francesi.</p>` }
+    ]
+  },
+  pt: {
+    ui: { skip: 'Ir para o conteúdo', translate: 'Traduzir', light: 'Modo claro', dark: 'Modo escuro', smaller: 'Diminuir o tamanho do texto', larger: 'Aumentar o tamanho do texto', size: 'Tamanho do texto', current: 'atualmente', toc: 'Sumário', eyebrow: 'Informações legais', title: 'Aviso legal', sub: 'CV portfólio de {N}', updated: 'Última atualização:', back: 'Voltar ao CV portfólio', rights: 'Todos os direitos reservados.', langChanged: 'Página apresentada em português.', themeOnLight: 'Modo claro ativado.', themeOnDark: 'Modo escuro ativado.', portfolio: 'CV portfólio', notice: 'Esta tradução é fornecida apenas a título informativo. Em caso de divergência, prevalece a versão francesa.' },
+    gen: { N: 'o titular deste CV portfólio', de: 'do titular deste CV portfólio', a: 'ao titular deste CV portfólio', por: 'pelo titular deste CV portfólio' }, pre: { de: 'de', a: 'a', por: 'por' }, noEmail: 'o formulário de contacto do CV portfólio',
+    lb: { editor: 'Editor do site', status: 'Estatuto', statusVal: 'Particular – site pessoal, sem fins comerciais', contact: 'Contacto', place: 'Localização', director: 'Diretor da publicação', host: 'Fornecedor de alojamento', address: 'Morada', phone: 'Telefone', web: 'Site' },
+    s: [
+      { id: 'editeur', t: 'Editor do site', h: `<p>Este site é um CV portfólio pessoal, editado a título não profissional por uma pessoa singular, em conformidade com a lei francesa n.º 2004-575, de 21 de junho de 2004, relativa à confiança na economia digital (LCEN).</p>{EDITOR}` },
+      { id: 'hebergement', t: 'Alojamento', h: `<p>O site é alojado por:</p>{HOST}` },
+      { id: 'objet', t: 'Objeto do site', h: `<p>Este site tem como único objetivo apresentar o percurso, as competências, a formação e os projetos {N:de}, para facilitar a procura de emprego ou de estágio e o contacto com recrutadores.</p><p>Foi realizado no âmbito da formação {F}. Não vende qualquer produto ou serviço e não contém publicidade.</p>` },
+      { id: 'propriete', t: 'Propriedade intelectual', h: `<p>Salvo indicação em contrário, todos os conteúdos deste site (textos, fotografias, capturas de ecrã, projetos, programas e documentos descarregáveis) pertencem {N:a}. É proibida qualquer reprodução, representação, modificação ou difusão, total ou parcial, sem autorização prévia por escrito (Código francês da propriedade intelectual).</p><p>As marcas, logótipos e nomes de produtos citados (software, sistemas operativos, equipamentos de rede, etc.) pertencem aos respetivos proprietários e são mencionados apenas para fins descritivos.</p><p>O site utiliza ferramentas livres: Bootstrap (licença MIT), Font Awesome Free (licenças CC BY 4.0, SIL OFL 1.1 e MIT) e os tipos de letra Syne, DM Sans e IBM Plex Mono (licença SIL Open Font License).</p>` },
+      { id: 'donnees', t: 'Dados pessoais (RGPD)', h: `<p><strong>Responsável pelo tratamento:</strong> {N}, contactável através de {E}.</p><ul><li><strong>Dados recolhidos:</strong> apenas os que introduz voluntariamente no formulário de contacto (nome, endereço de e-mail, assunto e mensagem).</li><li><strong>Finalidade:</strong> responder à sua mensagem, nomeadamente uma proposta de emprego ou de estágio ou um pedido de informação.</li><li><strong>Fundamento jurídico:</strong> o seu consentimento, expresso pelo envio voluntário da mensagem (artigo 6.º, n.º 1, alínea a), do RGPD).</li><li><strong>Destinatários:</strong> as mensagens são lidas apenas {N:por}. Passam pelo serviço de formulários Formspree, sediado nos Estados Unidos, que atua como prestador técnico ({FS}). Os seus dados nunca são vendidos nem cedidos.</li><li><strong>Prazo de conservação:</strong> o tempo necessário para tratar o seu pedido e, no máximo, três anos após o último contacto.</li></ul><p>Nos termos do RGPD e da lei francesa «Informatique et Libertés», tem direito de acesso, retificação, apagamento, limitação, oposição e portabilidade dos seus dados. Para os exercer, escreva para {E}. Pode também apresentar reclamação à CNIL, a autoridade francesa de proteção de dados ({CNIL}).</p>` },
+      { id: 'cookies', t: 'Cookies e armazenamento local', h: `<p>Este site não utiliza cookies publicitários nem ferramentas de medição de audiência.</p><p>Guarda apenas no seu navegador (armazenamento local) as suas preferências de visualização: tema claro ou escuro, tamanho do texto e idioma. Estas informações ficam no seu dispositivo, não são transmitidas a ninguém e podem ser apagadas a qualquer momento nas definições do navegador.</p><p>Alguns recursos são carregados a partir de serviços de terceiros, que recebem nessa altura o seu endereço IP: os tipos de letra Google Fonts (Google), as bibliotecas das redes de distribuição jsDelivr e cdnjs e o mapa Google Maps integrado no CV portfólio. O serviço Google Tradutor só é carregado se pedir a tradução do CV portfólio; nesse caso, coloca um cookie «googtrans» que memoriza o idioma escolhido.</p>` },
+      { id: 'liens', t: 'Ligações externas e responsabilidade', h: `<p>O site pode conter ligações para outros sites (redes profissionais, centro de formação, documentação). O seu conteúdo não é da responsabilidade {N:de}, que não exerce qualquer controlo sobre eles.</p><p>As informações publicadas são fornecidas a título indicativo. Apesar do cuidado na sua exatidão, podem subsistir erros ou omissões: pode assinalá-los através de {E}.</p>` },
+      { id: 'accessibilite', t: 'Acessibilidade e traduções', h: `<p>Esta página e o CV portfólio oferecem um tema claro e um tema escuro com contraste reforçado, botões A− e A+ para aumentar o texto até 135 %, navegação completa por teclado e uma estrutura adaptada aos leitores de ecrã.</p><p>As versões inglesa, espanhola, alemã, italiana, portuguesa e neerlandesa desta página são fornecidas a título informativo. Em caso de divergência, prevalece a versão francesa.</p>` },
+      { id: 'droit', t: 'Lei aplicável', h: `<p>O presente aviso legal rege-se pelo direito francês. Em caso de litígio, e na falta de solução amigável, são competentes os tribunais franceses.</p>` }
+    ]
+  },
+  nl: {
+    ui: { skip: 'Naar de inhoud', translate: 'Vertalen', light: 'Lichte modus', dark: 'Donkere modus', smaller: 'Tekst verkleinen', larger: 'Tekst vergroten', size: 'Tekstgrootte', current: 'nu', toc: 'Inhoud', eyebrow: 'Juridische informatie', title: 'Juridische kennisgeving', sub: 'Cv-portfolio van {N}', updated: 'Laatst bijgewerkt:', back: 'Terug naar het cv-portfolio', rights: 'Alle rechten voorbehouden.', langChanged: 'Pagina weergegeven in het Nederlands.', themeOnLight: 'Lichte modus ingeschakeld.', themeOnDark: 'Donkere modus ingeschakeld.', portfolio: 'Cv-portfolio', notice: 'Deze vertaling is uitsluitend ter informatie. Bij verschillen is de Franse versie doorslaggevend.' },
+    gen: { N: 'de eigenaar van dit cv-portfolio' }, pre: {}, noEmail: 'het contactformulier van het cv-portfolio',
+    lb: { editor: 'Uitgever van de website', status: 'Status', statusVal: 'Particulier – persoonlijke, niet-commerciële website', contact: 'Contact', place: 'Locatie', director: 'Verantwoordelijke uitgever', host: 'Hostingprovider', address: 'Adres', phone: 'Telefoon', web: 'Website' },
+    s: [
+      { id: 'editeur', t: 'Uitgever van de website', h: `<p>Deze website is een persoonlijk cv-portfolio, op niet-professionele basis uitgegeven door een natuurlijk persoon, overeenkomstig de Franse wet nr. 2004-575 van 21 juni 2004 inzake het vertrouwen in de digitale economie (LCEN).</p>{EDITOR}` },
+      { id: 'hebergement', t: 'Hosting', h: `<p>De website wordt gehost door:</p>{HOST}` },
+      { id: 'objet', t: 'Doel van de website', h: `<p>Deze website heeft als enig doel de loopbaan, vaardigheden, opleiding en projecten van {N} te presenteren, om het zoeken naar een baan of stage en het contact met recruiters te vergemakkelijken.</p><p>Zij is gemaakt in het kader van de opleiding {F}. Zij verkoopt geen producten of diensten en bevat geen reclame.</p>` },
+      { id: 'propriete', t: 'Intellectueel eigendom', h: `<p>Tenzij anders vermeld, behoort alle inhoud van deze website (teksten, foto's, schermafbeeldingen, projecten, programma's en downloadbare documenten) toe aan {N}. Elke volledige of gedeeltelijke verveelvoudiging, weergave, wijziging of verspreiding zonder voorafgaande schriftelijke toestemming is verboden (Frans Wetboek van intellectuele eigendom).</p><p>De genoemde merken, logo's en productnamen (software, besturingssystemen, netwerkapparatuur enz.) behoren toe aan hun respectieve eigenaren en worden uitsluitend beschrijvend vermeld.</p><p>De website gebruikt vrije tools: Bootstrap (MIT-licentie), Font Awesome Free (licenties CC BY 4.0, SIL OFL 1.1 en MIT) en de lettertypen Syne, DM Sans en IBM Plex Mono (SIL Open Font License).</p>` },
+      { id: 'donnees', t: 'Persoonsgegevens (AVG)', h: `<p><strong>Verwerkingsverantwoordelijke:</strong> {N}, bereikbaar via {E}.</p><ul><li><strong>Verzamelde gegevens:</strong> alleen de gegevens die u vrijwillig invult in het contactformulier (naam, e-mailadres, onderwerp en bericht).</li><li><strong>Doel:</strong> uw bericht beantwoorden, met name een baan- of stageaanbod of een verzoek om informatie.</li><li><strong>Rechtsgrond:</strong> uw toestemming, gegeven door het vrijwillig verzenden van het bericht (artikel 6, lid 1, onder a, AVG).</li><li><strong>Ontvangers:</strong> berichten worden alleen gelezen door {N}. Ze lopen via de formulierdienst Formspree, gevestigd in de Verenigde Staten, die optreedt als technische dienstverlener ({FS}). Uw gegevens worden nooit verkocht of doorgegeven.</li><li><strong>Bewaartermijn:</strong> zo lang als nodig is om uw verzoek af te handelen, en maximaal drie jaar na het laatste contact.</li></ul><p>Op grond van de AVG en de Franse wet „Informatique et Libertés” hebt u recht op inzage, rectificatie, wissing, beperking, bezwaar en overdraagbaarheid van uw gegevens. Schrijf hiervoor naar {E}. U kunt ook een klacht indienen bij de CNIL, de Franse toezichthouder voor gegevensbescherming ({CNIL}).</p>` },
+      { id: 'cookies', t: 'Cookies en lokale opslag', h: `<p>Deze website gebruikt geen advertentiecookies en geen tools voor bezoekersmetingen.</p><p>Zij slaat in uw browser (lokale opslag) alleen uw weergavevoorkeuren op: licht of donker thema, tekstgrootte en taal. Deze informatie blijft op uw apparaat, wordt aan niemand doorgegeven en kan op elk moment worden gewist via de instellingen van uw browser.</p><p>Sommige bronnen worden geladen via diensten van derden, die daarbij uw IP-adres ontvangen: Google Fonts (Google), bibliotheken van de contentnetwerken jsDelivr en cdnjs, en de in het cv-portfolio ingesloten Google Maps-kaart. Google Translate wordt alleen geladen als u vraagt het cv-portfolio te vertalen; het plaatst dan een cookie „googtrans” dat de gekozen taal onthoudt.</p>` },
+      { id: 'liens', t: 'Externe links en aansprakelijkheid', h: `<p>De website kan links bevatten naar andere websites (professionele netwerken, opleidingscentrum, documentatie). Voor de inhoud van die websites is {N} niet verantwoordelijk, aangezien daarop geen controle wordt uitgeoefend.</p><p>De gepubliceerde informatie is indicatief. Ondanks de zorg voor de juistheid ervan kunnen er fouten of onvolledigheden zijn: u kunt deze melden via {E}.</p>` },
+      { id: 'accessibilite', t: 'Toegankelijkheid en vertalingen', h: `<p>Deze pagina en het cv-portfolio bieden een licht en een donker thema met versterkt contrast, A−- en A+-knoppen om de tekst tot 135 % te vergroten, volledige toetsenbordbediening en een structuur die geschikt is voor schermlezers.</p><p>De Engelse, Spaanse, Duitse, Italiaanse, Portugese en Nederlandse versies van deze pagina zijn uitsluitend ter informatie. Bij verschillen is de Franse versie doorslaggevend.</p>` },
+      { id: 'droit', t: 'Toepasselijk recht', h: `<p>Deze juridische kennisgeving valt onder het Franse recht. Bij een geschil, en bij gebrek aan een minnelijke oplossing, zijn de Franse rechtbanken bevoegd.</p>` }
+    ]
+  }
+  };
+
+  /* ═══════════════════ OUTILS ═══════════════════ */
+  var root = document.documentElement;
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function store(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function say(msg) { var l = $('live'); l.textContent = ''; setTimeout(function () { l.textContent = msg; }, 40); }
+
+  /* ═══════════════════ 1. QUI EST LE PROPRIÉTAIRE ? ═══════════════════
+     Priorité : ce que transmet le lien du pied de page (#nom=…&email=…) → le bloc CONFIG → une formule neutre. */
+  var hp = new URLSearchParams(location.hash.slice(1));
+  function clean(v, max) { return (v || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, max); }
+  /* Les informations reçues sont gardées pour l'onglet en cours : un rechargement de la page ne les perd pas. */
+  var kept = {};
+  if (hp.get('nom') || hp.get('email') || hp.get('lieu')) {
+    kept = { nom: hp.get('nom') || '', email: hp.get('email') || '', lieu: hp.get('lieu') || '' };
+    try { sessionStorage.setItem('ml_owner', JSON.stringify(kept)); } catch (e) {}
+  } else {
+    try { kept = JSON.parse(sessionStorage.getItem('ml_owner') || '{}') || {}; } catch (e) { kept = {}; }
+  }
+  var owner = {
+    nom:   clean(kept.nom, 80)    || clean(CONFIG.nom, 80),
+    email: clean(kept.email, 120) || clean(CONFIG.email, 120),
+    lieu:  clean(kept.lieu, 120)  || clean(CONFIG.lieu, 120)
+  };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(owner.email)) owner.email = '';
+  if (/^(pr[ée]nom nom)$/i.test(owner.nom)) owner.nom = '';
+  /* On retire ces informations de la barre d'adresse : l'URL reste propre si on la copie. */
+  if (location.hash && history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+
+  function initials(n) {
+    var p = (n || '').replace(/[-–—]/g, ' ').trim().split(/\s+/).filter(Boolean);
+    if (!p.length) return 'CV';
+    return p.length === 1 ? p[0].charAt(0).toUpperCase() : (p[0].charAt(0) + p[p.length - 1].charAt(0)).toUpperCase();
+  }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  /* ═══════════════════ 2. LANGUE ═══════════════════ */
+  var lang = (hp.get('lang') || read('portfolio_lang') || 'fr').toLowerCase().slice(0, 2);
+  if (!T[lang]) lang = 'fr';
+  /* La langue transmise par le CV portfolio devient la langue mémorisée : un rechargement la conserve. */
+  if (hp.get('lang')) { try { lang === 'fr' ? localStorage.removeItem('portfolio_lang') : localStorage.setItem('portfolio_lang', lang); } catch (e) {} }
+
+  function render(announce) {
+    var t = T[lang], ui = t.ui;
+    var nameHtml  = owner.nom ? '<strong>' + esc(owner.nom) + '</strong>' : esc(t.gen.N);
+    /* {N} = le nom seul ; {N:di}, {N:a}… = le nom précédé de sa préposition, ou la formule neutre déjà accordée (« del titolare », « dem Inhaber »…). */
+    var nameTok = function (m, prep) {
+      if (!prep) return nameHtml;
+      if (owner.nom) return (t.pre[prep] ? t.pre[prep] + ' ' : '') + nameHtml;
+      return esc(t.gen[prep] || t.gen.N);
+    };
+    var emailHtml = owner.email ? '<a href="mailto:' + esc(owner.email) + '">' + esc(owner.email) + '</a>' : esc(t.noEmail);
+    var H = CONFIG.hebergeur;
+    var dl = function (rows) {
+      return '<dl class="id">' + rows.filter(function (r) { return r[1]; }).map(function (r) { return '<dt>' + esc(r[0]) + '</dt><dd>' + r[1] + '</dd>'; }).join('') + '</dl>';
+    };
+    var editor = dl([
+      [t.lb.editor,   owner.nom ? '<strong>' + esc(owner.nom) + '</strong>' : esc(cap(t.gen.N))],
+      [t.lb.status,   esc(t.lb.statusVal)],
+      [t.lb.contact,  owner.email ? emailHtml : esc(cap(t.noEmail))],
+      [t.lb.place,    owner.lieu ? esc(owner.lieu) : ''],
+      [t.lb.director, owner.nom ? esc(owner.nom) : esc(cap(t.gen.N))]
+    ]);
+    var host = dl([
+      [t.lb.host,    esc(H.nom)],
+      [t.lb.address, esc(H.adresse)],
+      [t.lb.phone,   H.tel ? '<a href="tel:' + esc(H.tel.replace(/\s+/g, '')) + '">' + esc(H.tel) + '</a>' : ''],
+      [t.lb.web,     H.web ? '<a href="' + esc(H.web) + '" target="_blank" rel="noopener">' + esc(H.web.replace(/^https?:\/\//, '')) + '</a>' : '']
+    ]);
+    var fill = function (h) {
+      return h.replace('{EDITOR}', editor).replace('{HOST}', host)
+              .replace(/\{N(?::(\w+))?\}/g, nameTok).replace(/\{E\}/g, emailHtml).replace(/\{F\}/g, esc(CONFIG.formation))
+              .replace(/\{FS\}/g, '<a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener">formspree.io</a>')
+              .replace(/\{CNIL\}/g, '<a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener">www.cnil.fr</a>');
+    };
+    /* En français, « de » s'élide devant un prénom qui commence par une voyelle : « d'Anne », « d'Hugo ». */
+    var fillLang = function (h) {
+      h = fill(h);
+      if (lang === 'fr' && owner.nom) h = h.replace(/\bde (<strong>[AEIOUYÀÂÄÉÈÊËÎÏÔÖÛÙÜH])/g, 'd’$1');
+      return h;
+    };
+
+    root.lang = lang;
+    document.title = ui.title + (owner.nom ? ' – ' + owner.nom : '') + ' · ' + ui.portfolio;
+    $('skip').textContent = ui.skip;
+    $('eyebrow').textContent = ui.eyebrow;
+    $('h1').textContent = ui.title;
+    $('sub').innerHTML = owner.nom ? esc(ui.sub).replace('{N}', nameHtml) : '';
+    $('sub').hidden = !owner.nom;
+    var d = new Date(CONFIG.majISO + 'T12:00:00');
+    var dateTxt = d.toLocaleDateString(lang, { day: 'numeric', month: 'long', year: 'numeric' });
+    $('meta').innerHTML = esc(ui.updated) + ' <time datetime="' + esc(CONFIG.majISO) + '">' + esc(dateTxt) + '</time>';
+    $('toc-title').textContent = ui.toc;
+    $('initials').textContent = initials(owner.nom);
+    $('brand-sub').textContent = ui.portfolio;
+    $('brand').setAttribute('aria-label', ui.back);
+    $('back-lbl').textContent = ui.back;
+    $('copy').textContent = '© ' + new Date().getFullYear() + ' ' + (owner.nom || cap(t.gen.N)) + ' – ' + ui.rights;
+    $('notice').hidden = !ui.notice;
+    $('notice-txt').textContent = ui.notice;
+
+    $('toc-list').innerHTML = t.s.map(function (s) { return '<li><a href="#' + s.id + '">' + esc(s.t) + '</a></li>'; }).join('');
+    $('sections').innerHTML = t.s.map(function (s, i) {
+      return '<section class="block" id="' + s.id + '" aria-labelledby="h-' + s.id + '"><h2 id="h-' + s.id + '"><span class="n" aria-hidden="true">' + String(i + 1).padStart(2, '0') + '</span><span>' + esc(s.t) + '</span></h2>' + fillLang(s.h) + '</section>';
+    }).join('');
+
+    /* Boutons de la barre */
+    $('lang-lbl').textContent = ui.translate;
+    $('lang-code').textContent = lang.toUpperCase();
+    $('lang-btn').setAttribute('aria-label', ui.translate + ' – ' + LANGS.filter(function (l) { return l.code === lang; })[0].name);
+    $('tz-group').setAttribute('aria-label', ui.size);
+    renderLangMenu();
+    renderTheme();
+    renderScale();
+    if (announce) say(ui.langChanged);
+  }
+
+  /* ═══════════════════ 3. MENU DES LANGUES ═══════════════════ */
+  var langBtn = $('lang-btn'), langMenu = $('lang-menu');
+  function renderLangMenu() {
+    langMenu.innerHTML = LANGS.map(function (l) {
+      return '<li><button type="button" data-lang="' + l.code + '" lang="' + l.code + '"' + (l.code === lang ? ' aria-current="true"' : '') + '><span class="c" aria-hidden="true">' + l.code.toUpperCase() + '</span>' + esc(l.name) + '</button></li>';
+    }).join('');
+  }
+  function openMenu(focusIt) {
+    langMenu.hidden = false; langBtn.setAttribute('aria-expanded', 'true');
+    if (focusIt) (langMenu.querySelector('[aria-current="true"]') || langMenu.querySelector('button')).focus();
+  }
+  function closeMenu(refocus) {
+    if (langMenu.hidden) return;
+    langMenu.hidden = true; langBtn.setAttribute('aria-expanded', 'false');
+    if (refocus) langBtn.focus();
+  }
+  langBtn.addEventListener('click', function (e) { e.stopPropagation(); langMenu.hidden ? openMenu(e.detail === 0) : closeMenu(false); });
+  langBtn.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown') { e.preventDefault(); openMenu(true); } });
+  langMenu.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-lang]'); if (!b) return;
+    lang = b.getAttribute('data-lang');
+    store('portfolio_lang', lang === 'fr' ? null : lang);
+    closeMenu(true);
+    render(true);
+  });
+  langMenu.addEventListener('keydown', function (e) {
+    var list = Array.prototype.slice.call(langMenu.querySelectorAll('button')), i = list.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); list[(i + 1) % list.length].focus(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); list[(i - 1 + list.length) % list.length].focus(); }
+    else if (e.key === 'Home') { e.preventDefault(); list[0].focus(); }
+    else if (e.key === 'End') { e.preventDefault(); list[list.length - 1].focus(); }
+    else if (e.key === 'Tab') closeMenu(false);
+  });
+  document.addEventListener('click', function (e) { if (!langMenu.hidden && !e.target.closest('.lang')) closeMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(true); });
+
+  /* ═══════════════════ 4. THÈME CLAIR / SOMBRE (même mémoire que le CV portfolio) ═══════════════════ */
+  var hashTheme = hp.get('theme');
+  if (hashTheme === 'light' || hashTheme === 'dark') store('theme', hashTheme);
+  function renderTheme() {
+    var ui = T[lang].ui, light = root.getAttribute('data-theme') === 'light';
+    /* Le bouton annonce ce qu'il va faire : en mode sombre, il propose le mode clair, et inversement. */
+    $('theme-lbl').textContent = light ? ui.dark : ui.light;
+    $('theme-ico').className = light ? 'fas fa-moon' : 'fas fa-sun';
+    $('theme-btn').setAttribute('aria-label', light ? ui.dark : ui.light);
+    $('theme-btn').setAttribute('aria-pressed', light ? 'true' : 'false');
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#f5f7fb' : '#060d1a');
+  }
+  $('theme-btn').addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    store('theme', next);
+    renderTheme();
+    say(next === 'light' ? T[lang].ui.themeOnLight : T[lang].ui.themeOnDark);
+  });
+
+  /* ═══════════════════ 5. TAILLE DES TEXTES : 100 % → 135 % (même mémoire que le CV portfolio) ═══════════════════ */
+  var MIN = 1, MAX = 1.35, STEP = 0.05;
+  var scale = parseFloat(root.style.getPropertyValue('--tz-scale')) || 1;
+  if (hp.get('scale')) store('portfolio_text_scale', scale === 1 ? null : String(scale));
+  function clamp(v) { v = Math.round(v * 100) / 100; return Math.min(MAX, Math.max(MIN, v)); }
+  function renderScale() {
+    var ui = T[lang].ui, pct = Math.round(scale * 100) + ' %';
+    $('tz-val').textContent = pct;
+    $('tz-down').disabled = scale <= MIN; $('tz-up').disabled = scale >= MAX;
+    $('tz-down').setAttribute('aria-label', ui.smaller + ' (' + ui.current + ' ' + pct + ')');
+    $('tz-up').setAttribute('aria-label', ui.larger + ' (' + ui.current + ' ' + pct + ')');
+    $('tz-down').title = ui.smaller; $('tz-up').title = ui.larger;
+  }
+  function setScale(v) {
+    scale = clamp(v);
+    root.style.setProperty('--tz-scale', scale);
+    root.classList.toggle('tz-on', scale !== 1);
+    store('portfolio_text_scale', scale === 1 ? null : String(scale));
+    renderScale();
+  }
+  $('tz-down').addEventListener('click', function () { setScale(scale - STEP); });
+  $('tz-up').addEventListener('click', function () { setScale(scale + STEP); });
+
+  /* Si une autre page du site (le CV portfolio ouvert dans un autre onglet) change ces réglages, on suit. */
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'theme' && (e.newValue === 'light' || e.newValue === 'dark')) { root.setAttribute('data-theme', e.newValue); renderTheme(); }
+    if (e.key === 'portfolio_text_scale') { scale = clamp(parseFloat(e.newValue) || 1); root.style.setProperty('--tz-scale', scale); root.classList.toggle('tz-on', scale !== 1); renderScale(); }
+  });
+
+  /* Le lien d'évitement place le focus sur le contenu. */
+  $('skip').addEventListener('click', function () { setTimeout(function () { $('contenu').focus(); }, 0); });
+
+  render(false);
+})();
+</script>
+</body>
+</html>

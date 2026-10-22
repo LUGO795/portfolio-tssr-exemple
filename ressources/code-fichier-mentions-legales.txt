@@ -1,0 +1,257 @@
+La page tient dans un fichier à part, mentions-legales.html, à placer dans le même dossier que index.html. 
+
+Dans index.html, il suffit de coller ce bloc juste avant </body>, sans rien modifier d’autre. 
+
+Le lien « Mentions légales » s’ajoute alors tout seul à la fin de la colonne « Sections » du pied de page et ouvre la page dans un nouvel onglet.
+
+<!-- ═══════════════════ LIEN « MENTIONS LÉGALES » DU PIED DE PAGE ═══════════════════ -->
+<!-- À coller juste avant la balise fermante de body. Le lien s'ajoute tout seul à la fin de la colonne « Sections » du pied de page
+     et ouvre mentions-legales.html (à placer à côté de index.html) dans un nouvel onglet, en lui transmettant le nom, l'e-mail
+     et la ville affichés sur le CV, ainsi que la langue, le thème et la taille des textes en cours. -->
+<style>
+  /* Le lien hérite du style des autres liens du pied de page ; on ajoute seulement l'icône et un soulignement au survol. */
+  .footer-nav-list a.ml-link { display: inline; }
+  .footer-nav-list a.ml-link .fa-scale-balanced { margin-right: .4rem; }
+  .footer-nav-list a.ml-link .ml-ext { margin-left: .35rem; }
+  .footer-nav-list a.ml-link:hover,
+  .footer-nav-list a.ml-link:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
+  .footer-nav-list a.ml-link .ml-ext { font-size: .75em; opacity: .85; }
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  /* Le fichier de la page de mentions légales. */
+  var PAGE = 'mentions-legales.html';
+
+  /* La colonne « Sections » est la dernière liste de liens du pied de page. */
+  var lists = document.querySelectorAll('footer .footer-nav-list');
+  var list = lists[lists.length - 1];
+  if (!list) return;
+
+  var li = document.createElement('li');
+  li.setAttribute('role', 'listitem');
+  li.innerHTML =
+    '<a class="ml-link" href="' + PAGE + '" target="_blank" rel="noopener">' +
+      '<i class="fas fa-scale-balanced" aria-hidden="true"></i>' +
+      '<span>Mentions légales</span>' +
+      '<i class="fas fa-arrow-up-right-from-square ml-ext" aria-hidden="true"></i>' +
+      '<span class="visually-hidden"> (nouvel onglet)</span>' +
+    '</a>';
+  list.appendChild(li);
+  var link = li.querySelector('a');
+
+  function txt(el) { return el ? (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim() : ''; }
+
+  /* Le nom affiché sur le CV, lu au moment du clic : il suit donc les modifications faites en mode édition ou par import de CV. */
+  function readName() {
+    var typed  = txt(document.getElementById('typing-name'));
+    var strong = txt(document.querySelector('.about-text p:first-of-type strong:first-of-type'));
+    var n = (strong && strong.length >= typed.length) ? strong : (typed || strong);
+    return /^pr[ée]nom nom$/i.test(n) ? '' : n;
+  }
+  function readEmail() {
+    var a = document.querySelector('footer a[href^="mailto:"]') || document.querySelector('a[href^="mailto:"]');
+    return a ? decodeURIComponent(a.getAttribute('href').replace(/^mailto:/i, '').split('?')[0]).trim() : '';
+  }
+  /* La ville : le début du dernier paragraphe de localisation du pied de page, avant le « · ». */
+  function readPlace() {
+    var locs = document.querySelectorAll('footer .footer-location');
+    var last = locs[locs.length - 1];
+    return last ? txt(last).split('·')[0].trim() : '';
+  }
+
+  /* On construit l'adresse juste avant l'ouverture. Les informations passent après le « # » :
+     elles restent dans le navigateur et ne sont jamais envoyées au serveur. */
+  function updateHref() {
+    var p = new URLSearchParams();
+    var nom = readName(), email = readEmail(), lieu = readPlace(), lang = '', scale = '';
+    if (nom)   p.set('nom', nom);
+    if (email) p.set('email', email);
+    if (lieu)  p.set('lieu', lieu);
+    try { lang = localStorage.getItem('portfolio_lang') || ''; } catch (e) {}
+    p.set('lang', lang || 'fr');
+    p.set('theme', document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+    scale = document.documentElement.style.getPropertyValue('--tz-scale');
+    if (scale && parseFloat(scale) !== 1) p.set('scale', String(parseFloat(scale)));
+    link.href = PAGE + '#' + p.toString();
+  }
+  ['mouseenter', 'focus', 'mousedown', 'touchstart', 'click', 'contextmenu'].forEach(function (ev) {
+    link.addEventListener(ev, updateHref, { passive: true });
+  });
+  updateHref();
+})();
+</script>
+<!-- ═══════════════════ FIN LIEN MENTIONS LÉGALES ═══════════════════ -->
+
+J’ai testé l’ensemble sur une copie de votre site. 
+Le lien ouvre la page avec le nom, l’e-mail et la ville affichés sur le CV, dans la même langue, le même thème et la même taille de texte. 
+
+La page s’affiche correctement dans les 7 langues, sans débordement de 280 px à 1440 px, et le menu des langues reste dans l’écran même à 280 px.
+
+Ce que fait la page
+
+Fonctionne avec n’importe quel nom : 
+le nom est lu sur le CV au moment du clic, donc il suit aussi les changements faits en mode édition ou par import de CV.
+
+Si la page est ouverte directement, sans passer par le lien, elle parle de « la personne titulaire de ce CV portfolio ».
+
+Cette formule s’accorde avec la grammaire de chaque langue (« del titolare », « dem Inhaber »…), et en français le « de » s’élide devant un prénom à voyelle (« d’Anne »).
+
+Les 7 langues du CV : 
+les traductions sont écrites dans la page elle-même, sans passer par Google Traduction, ce qui est plus fiable pour un texte juridique. 
+Une mention précise que la version française fait foi.
+
+Lisibilité, y compris pour les malvoyants : 
+le contraste des textes va de 9,6:1 à 20:1 en clair comme en sombre, au-dessus du niveau AAA (7:1).
+
+On y trouve aussi les boutons A− / A+ jusqu’à 135 %, une navigation complète au clavier avec un contour jaune bien visible, et un lien « Aller au contenu ».
+
+Les lecteurs d’écran annoncent les changements, et la page respecte le réglage « réduire les animations ».
+
+Le contenu :
+
+éditeur et directeur de la publication ;
+hébergeur ;
+objet du site ;
+propriété intellectuelle ;
+données personnelles, avec le formulaire Formspree et les droits RGPD ;
+cookies et services tiers réellement utilisés par votre CV : Google Fonts, jsDelivr/cdnjs, Google Maps et Google Traduction ;
+liens externes ;
+accessibilité ;
+droit applicable.
+
+À vérifier dans le bloc CONFIG, en haut du script de la page
+
+L’hébergeur est GitHub Pages par défaut. J’ai vérifié l’adresse de GitHub, Inc. 
+Le numéro de téléphone indiqué est celui de son service commercial, faute d’un autre numéro publié. 
+
+Si un stagiaire publie ailleurs, il doit remplacer ces coordonnées.
+majISO est la date de dernière mise à jour affichée sur la page. Elle est réglée sur aujourd’hui.
+
+La formation est indiquée comme « TSSR – MODE 83, Draguignan ».
+
+Je ne suis pas juriste : 
+la page couvre les obligations de la LCEN et du RGPD pour un site personnel non commercial, mais elle ne remplace pas l’avis d’un professionnel.
+
+Sources :
+
+LegalPlace – Mentions légales (LCEN art. 1-1, sanctions)
+Open Terms Archive – adresse de GitHub
+datarequests.org – coordonnées de GitHub, Inc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

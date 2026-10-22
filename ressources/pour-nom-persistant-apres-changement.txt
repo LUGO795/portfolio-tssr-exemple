@@ -1,0 +1,81 @@
+Le nouveau nom n’est pas perdu par hasard : 
+vers la ligne 6696 de index.html, un petit script efface volontairement le nom mémorisé à chaque chargement de la page. 
+
+Ce script ne suffit pas à supprimer seul : il cachait un second problème. 
+L’animation de frappe écrit le nom lettre par lettre (« L », « Lu », « Luc »…) et chaque étape était mémorisée. 
+
+Si on fermait la page pendant l’animation, le nom restait tronqué. 
+Je l’ai vérifié sur votre fichier d’origine : à mi-animation, il avait mémorisé « Lucas ».
+
+Il faut donc deux modifications dans index.html. Je vous envoie aussi le fichier avec ces deux corrections déjà faites.
+
+1. Supprimer entièrement ce bloc (vers la ligne 6696)
+
+<!-- Réinitialisation du nom par défaut à chaque rechargement -->
+<!-- Un mini-script de réinitialisation. -->
+<script>
+/* Le petit script qui remet le nom par défaut à chaque rechargement : il efface le nom personnalisé mémorisé. try/catch évite une erreur si le navigateur bloque le localStorage. */
+try { localStorage.removeItem('portfolio_custom_name'); } catch(e) {}
+/* La ligne suivante referme ce script. */
+</script>
+
+
+2. Dans la fonction setupWatchers() (vers la ligne 6930), remplacer :
+
+      new MutationObserver(function () {
+        /* …qui, à chaque changement, appelle onNameChanged juste après. */
+        setTimeout(function () { onNameChanged(heroEl); }, 0);
+
+par :
+
+      new MutationObserver(function () {
+        /* L'animation de frappe écrit le nom lettre par lettre (« L », « Lu », « Luc »…) : on ne mémorise QUE ce que vous tapez vous-même en mode édition. */
+        if (!heroEl.isContentEditable) return;
+        /* …qui, à chaque changement, appelle onNameChanged juste après. */
+        setTimeout(function () { onNameChanged(heroEl); }, 0);
+
+J’ai testé votre fichier d’origine puis le fichier corrigé :
+
+Situation                          	                                                      Avant	                                       Après
+Nom changé en mode édition, puis page rafraîchie	« Lucas Moreau » revient	             Le nouveau nom reste
+Page fermée puis rouverte	                                                « Lucas Moreau » revient	             Le nouveau nom reste
+Nom changé dans « À propos »	                                Perdu au rafraîchissement	             Conservé, et recopié dans l’en-tête
+Page fermée pendant l’animation de frappe	                 Nom tronqué mémorisé	             Rien n’est mémorisé, « Lucas Moreau » s’affiche normalement
+
+
+Les initiales du logo (par exemple « IB » pour Inès Benali) suivent bien le nouveau nom. 
+Le lien « Mentions légales » transmet lui aussi le nom à jour.
+
+Le nom est mémorisé dans le navigateur de la personne qui l’a tapé. 
+Un visiteur sur un autre ordinateur verra donc toujours le nom écrit dans le code. 
+Pour qu’un stagiaire publie son CV sous son propre nom, il faut aussi remplacer « Lucas Moreau » dans le HTML : 
+dans <span id="typing-name"> et dans la ligne const text = 'Lucas Moreau'; de l’animation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

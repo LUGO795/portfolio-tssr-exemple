@@ -1,0 +1,317 @@
+Voici le bloc à coller juste avant la balise </body> de index.html, sans rien modifier d’autre. 
+
+Les deux boutons A− et A+ se placent tout seuls dans la barre de navigation, devant le bouton thème.
+
+<!-- ═══════════════════ TAILLE DES TEXTES : boutons A− / A+ (100 % → 135 %) ═══════════════════ -->
+<!-- À coller juste avant la balise </body>. Rien d'autre à modifier : les boutons s'insèrent tout seuls dans la navbar, devant le bouton thème. -->
+<style>
+  /* Le principe : tout le site est écrit en rem, donc il suffit d'agrandir la taille de base de <html> (16 px) pour agrandir tous les textes d'un coup.
+     La classe tz-on et la variable --tz-scale sont posées par le script ; @media screen évite d'agrandir aussi l'impression A4. */
+  @media screen {
+    html.tz-on { font-size: calc(16px * var(--tz-scale, 1)); }
+  }
+
+  /* Le groupe du bouton thème devient une ligne flexible qui accueille nos boutons et passe à la ligne si la place manque. */
+  #navContent > .ms-lg-3 { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem; }
+
+  /* La pilule qui regroupe A−, le pourcentage et A+ : même gabarit de verre que #themeToggle, donc valable en clair comme en sombre. */
+  #tz-nav-wrap {
+    display: inline-flex; align-items: center; flex-shrink: 0;
+    background: var(--clr-surface2); border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg); padding: .15rem;
+  }
+  /* Les deux boutons : ronds, transparents, la couleur du texte courant. */
+  .tz-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .1rem;
+    min-width: 2.1rem; height: 2.1rem; padding: 0 .45rem;
+    background: transparent; border: 0; border-radius: 100px;
+    color: var(--clr-text); font-family: var(--font-mono); font-weight: 600;
+    font-size: var(--fz-min); line-height: 1; cursor: pointer;
+    transition: background var(--trans), color var(--trans);
+  }
+  /* La lettre A est un peu plus petite sur A−, un peu plus grande sur A+ : on comprend le rôle de chaque bouton d'un coup d'œil. */
+  .tz-btn .tz-a { font-family: var(--font-display); font-weight: 800; }
+  #tz-down .tz-a { font-size: .85em; }
+  #tz-up   .tz-a { font-size: 1.1em; }
+  .tz-btn i { font-size: .6em; }
+  /* Survol et focus clavier, comme le bouton thème. */
+  .tz-btn:hover:not(:disabled) { background: var(--clr-accent); color: #fff; }
+  .tz-btn:focus-visible { outline: 2px solid var(--clr-accent2); outline-offset: 2px; }
+  /* Arrivé à une limite (100 % ou 135 %), le bouton concerné s'estompe. */
+  .tz-btn:disabled { opacity: .4; cursor: not-allowed; }
+  /* Le pourcentage affiché entre les deux boutons. */
+  #tz-val {
+    font-family: var(--font-mono); font-size: .8em; font-weight: 600;
+    color: var(--clr-accent2); min-width: 3.2em; text-align: center; white-space: nowrap;
+  }
+
+  /* Entre 992 et 1599 px, la navbar passe déjà en icônes seules : on masque aussi le pourcentage (il reste dans l'infobulle). */
+  @media (min-width: 992px) and (max-width: 1599.98px) { #tz-val { display: none; } }
+  /* Entre 992 et 1199 px, la place est comptée : la pilule se fait plus fine pour que la barre garde sa ligne unique à 100 %. */
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    #tz-nav-wrap { padding: .1rem; }
+    .tz-btn { min-width: 1.7rem; height: 1.9rem; padding: 0 .2rem; gap: 0; }
+  }
+
+  /* ── NAVBAR TOUJOURS RESPONSIVE, MÊME AGRANDIE ──
+     Le script mesure la navbar sur grand écran. Si elle déborde :
+     1) classe tz-compact : on passe en icônes seules (comme entre 992 et 1599 px) ;
+     2) si ça ne suffit toujours pas, classe tz-collapse : on bascule en menu burger, comme sur mobile. */
+  @media (min-width: 992px) {
+    #mainNav.tz-compact #ed-nav-tools .ed-nav-btn span,
+    #mainNav.tz-compact #fs-config-btn span,
+    #mainNav.tz-compact #themeLabel,
+    #mainNav.tz-compact #tr-btn .tr-label,
+    #mainNav.tz-compact #tz-val { display: none !important; }
+
+    /* Mode burger forcé : la barre peut passer à la ligne, le bouton burger réapparaît… */
+    #mainNav.tz-collapse > .container-fluid { flex-wrap: wrap; }
+    #mainNav.tz-collapse .navbar-toggler { display: block !important; }
+    /* …le menu est replié tant qu'on n'a pas cliqué sur le burger… */
+    #mainNav.tz-collapse #navContent:not(.show):not(.collapsing) { display: none !important; }
+    /* …et une fois ouvert, il s'affiche en colonne sur toute la largeur, exactement comme sur mobile. */
+    #mainNav.tz-collapse #navContent { display: block !important; flex-basis: 100%; flex-grow: 1; }
+    #mainNav.tz-collapse #navContent .navbar-nav {
+      flex-direction: column; align-items: stretch !important;
+      gap: .25rem !important; margin: .5rem 0 !important;
+    }
+    #mainNav.tz-collapse #navContent .navbar-nav .nav-link { font-size: .92rem; padding: .4rem .5rem !important; }
+    /* Les libellés des boutons d'outils réapparaissent : en colonne, la place ne manque plus. */
+    #mainNav.tz-collapse #ed-nav-tools .ed-nav-btn span,
+    #mainNav.tz-collapse #fs-config-btn span,
+    #mainNav.tz-collapse #tr-btn .tr-label,
+    #mainNav.tz-collapse #tz-val { display: inline !important; }
+    #mainNav.tz-collapse #themeLabel { display: inline !important; }
+    /* Les groupes d'outils reprennent leur disposition mobile. */
+    #mainNav.tz-collapse #ed-nav-tools {
+      margin-left: 0; margin-top: .5rem; width: 100%;
+      justify-content: flex-start; flex-wrap: wrap; row-gap: .5rem;
+    }
+    #mainNav.tz-collapse #fs-nav-wrap,
+    #mainNav.tz-collapse #tr-nav-wrap { display: inline-flex !important; vertical-align: middle; margin-top: .5rem; }
+    #mainNav.tz-collapse #fs-nav-wrap { margin-left: 0 !important; margin-right: .4rem; }
+    #mainNav.tz-collapse #tr-nav-wrap { margin-left: 0; }
+    #mainNav.tz-collapse #tr-menu { left: 0; right: auto; }
+    #mainNav.tz-collapse #navContent > .ms-lg-3 { margin-left: 0 !important; margin-top: .5rem !important; }
+  }
+
+  /* Texte agrandi + menu burger ouvert : si le menu devient plus haut que l'écran (petit téléphone, paysage), il défile au lieu d'être coupé. */
+  @media (max-width: 991.98px) {
+    html.tz-on #navContent.show { max-height: calc(100vh - 5.5rem); max-height: calc(100dvh - 5.5rem); overflow-y: auto; overscroll-behavior: contain; }
+  }
+  @media (min-width: 992px) {
+    html.tz-on #mainNav.tz-collapse #navContent.show { max-height: calc(100vh - 5.5rem); max-height: calc(100dvh - 5.5rem); overflow-y: auto; overscroll-behavior: contain; }
+  }
+
+  /* Petits écrans + texte agrandi : la liste des langues du bouton « Traduire » s'ouvre dans le menu, sous le bouton, au lieu de flotter et de dépasser de l'écran. */
+  @media (max-width: 575.98px) {
+    html.tz-on #tr-nav-wrap { display: flex !important; flex-wrap: wrap; width: 100%; }
+    html.tz-on #tr-menu {
+      position: static; flex: 1 0 100%; min-width: 0; max-width: 100%;
+      margin-top: .5rem; transform: none; display: none;
+    }
+    html.tz-on #tr-menu.tr-open { display: block; }
+  }
+
+  /* Très petits écrans, sous 360 px : la pilule rétrécit un peu. */
+  @media (max-width: 359.98px) {
+    .tz-btn { min-width: 1.9rem; height: 1.9rem; padding: 0 .3rem; }
+    #tz-val { min-width: 2.8em; }
+  }
+
+  /* Les boutons n'ont rien à faire sur papier. */
+  @media print { #tz-nav-wrap { display: none !important; } }
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  /* Les réglages : de 100 % à 135 %, par pas de 5 %. Pour autoriser une réduction sous la taille d'origine, passez MIN à 0.9 par exemple. */
+  var MIN = 1, MAX = 1.35, STEP = 0.05;
+  /* La clé de mémorisation : le choix du visiteur est conservé d'une visite à l'autre. */
+  var KEY = 'portfolio_text_scale';
+  var html = document.documentElement;
+  var scale = 1;
+
+  /* Arrondi à 2 décimales et bornage entre MIN et MAX, pour éviter les 1.1500000002 des calculs en virgule flottante. */
+  function clamp(v) { v = Math.round(v * 100) / 100; return Math.min(MAX, Math.max(MIN, v)); }
+
+  /* ── 1. Les boutons, insérés dans le groupe du bouton thème, juste devant lui ── */
+  var wrap = document.createElement('div');
+  wrap.id = 'tz-nav-wrap';
+  wrap.setAttribute('role', 'group');
+  wrap.setAttribute('aria-label', 'Taille des textes');
+  wrap.innerHTML =
+    '<button type="button" class="tz-btn" id="tz-down" aria-label="Diminuer la taille des textes" title="Diminuer la taille des textes">' +
+      '<span class="tz-a" aria-hidden="true">A</span><i class="fas fa-minus" aria-hidden="true"></i>' +
+    '</button>' +
+    '<span id="tz-val" aria-live="polite">100 %</span>' +
+    '<button type="button" class="tz-btn" id="tz-up" aria-label="Agrandir la taille des textes" title="Agrandir la taille des textes">' +
+      '<span class="tz-a" aria-hidden="true">A</span><i class="fas fa-plus" aria-hidden="true"></i>' +
+    '</button>';
+
+  var themeBtn = document.getElementById('themeToggle');
+  var navContent = document.getElementById('navContent');
+  if (themeBtn && themeBtn.parentNode) themeBtn.parentNode.insertBefore(wrap, themeBtn);
+  else if (navContent) navContent.appendChild(wrap);
+  else return;
+
+  var btnDown = document.getElementById('tz-down');
+  var btnUp   = document.getElementById('tz-up');
+  var out     = document.getElementById('tz-val');
+
+  /* ── 2. Appliquer une taille ── */
+  function apply(v, save) {
+    scale = clamp(v);
+    var pct = Math.round(scale * 100) + ' %';
+    html.style.setProperty('--tz-scale', scale);
+    html.classList.toggle('tz-on', scale !== 1);
+    out.textContent = pct;
+    btnDown.disabled = scale <= MIN;
+    btnUp.disabled   = scale >= MAX;
+    btnDown.title = 'Diminuer la taille des textes (actuellement ' + pct + ')';
+    btnUp.title   = 'Agrandir la taille des textes (actuellement ' + pct + ')';
+    if (save) {
+      try { scale === 1 ? localStorage.removeItem(KEY) : localStorage.setItem(KEY, String(scale)); } catch (e) {}
+    }
+    fitNav();
+  }
+
+  btnDown.addEventListener('click', function () { apply(scale - STEP, true); });
+  btnUp.addEventListener('click',   function () { apply(scale + STEP, true); });
+
+  /* ── 3. La navbar ne déborde jamais ── */
+  var nav = document.getElementById('mainNav');
+  var bar = nav ? nav.querySelector('.container-fluid') : null;
+
+  function overflows() {
+    return navContent.scrollWidth > navContent.clientWidth + 1 || (bar && bar.scrollWidth > bar.clientWidth + 1);
+  }
+
+  function fitNav() {
+    if (!nav || !navContent) return;
+    /* On repart de l'affichage normal pour mesurer… */
+    nav.classList.remove('tz-compact', 'tz-collapse');
+    /* …sous 992 px, c'est déjà le menu burger de Bootstrap : rien à faire. */
+    if (window.innerWidth < 992) return;
+    /* Si la barre déborde : d'abord les icônes seules, puis, si besoin, le menu burger. */
+    if (overflows()) {
+      nav.classList.add('tz-compact');
+      if (overflows()) nav.classList.add('tz-collapse');
+    }
+  }
+
+  /* On remesure quand la fenêtre change de taille… */
+  var raf = 0;
+  function scheduleFit() { cancelAnimationFrame(raf); raf = requestAnimationFrame(fitNav); }
+  window.addEventListener('resize', scheduleFit);
+  window.addEventListener('orientationchange', scheduleFit);
+  window.addEventListener('load', scheduleFit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleFit);
+  /* …et quand un autre module ajoute un bouton ou change un libellé (traduction, mode édition, Formspree…). */
+  var ro = ('ResizeObserver' in window) ? new ResizeObserver(scheduleFit) : null;
+  function watchChildren() { if (ro) Array.prototype.forEach.call(navContent.children, function (el) { ro.observe(el); }); }
+  watchChildren();
+  if ('MutationObserver' in window) {
+    new MutationObserver(function () { watchChildren(); scheduleFit(); })
+      .observe(navContent, { childList: true, subtree: true, characterData: true });
+  }
+
+  /* En mode burger forcé, un clic sur un lien referme le menu, comme sur mobile. */
+  navContent.addEventListener('click', function (e) {
+    if (!nav.classList.contains('tz-collapse') || !e.target.closest('.nav-link')) return;
+    if (navContent.classList.contains('show') && window.bootstrap && bootstrap.Collapse) {
+      bootstrap.Collapse.getOrCreateInstance(navContent, { toggle: false }).hide();
+    }
+  });
+
+  /* ── 4. Au chargement : on reprend la taille mémorisée ── */
+  var saved = 1;
+  try { saved = parseFloat(localStorage.getItem(KEY)) || 1; } catch (e) {}
+  apply(saved, false);
+  /* Les autres modules insèrent leurs boutons après nous : on remesure un peu plus tard. */
+  setTimeout(fitNav, 800);
+  setTimeout(fitNav, 2500);
+})();
+</script>
+<!-- ═══════════════════ FIN TAILLE DES TEXTES ═══════════════════ -->
+
+
+J’ai ajouté ce bloc à une copie de votre page et je l’ai testé de 280 px à 2560 px de large, à 100 %, 115 % et 135 %, 
+en mode clair et en mode sombre. La barre ne dépasse de l’écran dans aucun cas, et la taille choisie est bien retrouvée quand on recharge la page.
+
+Pourquoi la barre s’adapte toute seule : 
+votre barre actuelle déborde d’environ 200 px quand les textes sont à 135 %, à 992 px comme à 1920 px. 
+Le code vérifie donc la place disponible. 
+Si elle manque, les boutons n’affichent plus que leur icône. Si cela ne suffit pas, la barre passe en menu burger, comme sur mobile. 
+À 100 %, la barre reste exactement comme aujourd’hui.
+
+Pas de réduction sous 100 % : le bouton A− ramène vers la taille d’origine mais ne descend pas en dessous, 
+pour ne pas passer sous la taille de texte minimale prévue dans votre feuille de style. 
+Pour permettre une taille plus petite, il suffit de remplacer MIN = 1 par MIN = 0.9.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
